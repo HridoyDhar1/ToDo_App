@@ -105,10 +105,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               onPressed: () {
                 // Save edited details or send them to the server.
+                // ignore: avoid_print
                 print('Updated Name: ${nameController.text}');
+                // ignore: avoid_print
                 print('Updated Email: ${emailController.text}');
+                // ignore: avoid_print
                 print('Updated Password: ${passwordController.text}');
                 if (_image != null) {
+                  // ignore: avoid_print
                   print('Updated Profile Image: ${_image!.path}');
                 }
               },

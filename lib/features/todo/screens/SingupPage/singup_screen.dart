@@ -14,6 +14,7 @@ import 'package:todo/utils/urls/urls.dart';
 import '../../../../data/services/network_response.dart';
 
 class SingupScreen extends StatefulWidget {
+
   const SingupScreen({super.key});
 
   @override

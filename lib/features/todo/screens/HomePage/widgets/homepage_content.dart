@@ -4,7 +4,9 @@ import 'package:todo/common/widgets/centeroid_circularindicator.dart';
 import 'package:todo/common/widgets/snack_bar.dart';
 import 'package:todo/data/model/network_response.dart';
 import 'package:todo/data/model/task_model.dart';
+import 'package:todo/data/model/taskcount_model.dart';
 import 'package:todo/data/model/tasklist_model.dart';
+import 'package:todo/data/model/taskstatus_model.dart';
 import 'package:todo/data/services/network_response.dart';
 import 'package:todo/features/todo/screens/HomePage/widgets/task_count_container.dart';
 import 'package:todo/utils/urls/urls.dart';
@@ -24,11 +26,14 @@ class HomePageContents extends StatefulWidget {
 class _HomePageContentsState extends State<HomePageContents> {
   bool _getNewTaskListInProgress = false;
   List<TaskModel> _newTaskList = [];
+  bool  _getTaskStatusCountListInProgress=false;
+  List<TaskStatusModel>_taskStatusCountList=[];
 
   @override
   void initState() {
     super.initState();
     _getNewTaskList(); // Initial fetch for tasks when the page loads
+ _getTaskStatusCount();
   }
 
   @override
@@ -65,7 +70,9 @@ class _HomePageContentsState extends State<HomePageContents> {
         ],
         body: RefreshIndicator(
           onRefresh: () async {
-            _getNewTaskList(); // Pull-to-refresh functionality
+            _getNewTaskList();
+            _getTaskStatusCount();
+             // Pull-to-refresh functionality
           },
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -178,6 +185,7 @@ class _HomePageContentsState extends State<HomePageContents> {
                   onPressed: () {
                     setState(() {
                       widget.tasks[index]['status'] = currentStatus;
+                      _getTaskStatusCount();
                     });
                     Navigator.of(context).pop();
                   },
@@ -189,5 +197,21 @@ class _HomePageContentsState extends State<HomePageContents> {
         );
       },
     );
+  }
+  Future<void> _getTaskStatusCount() async {
+    _taskStatusCountList.clear();
+    _getTaskStatusCountListInProgress = true;
+    setState(() {});
+    final NetworkResponse response =
+        await NetworkCaller.getRequest(url: Urls.taskStatusCount);
+    if (response.isSuccess) {
+      final TaskStatusCountModel taskStatusCountModel =
+          TaskStatusCountModel.fromJson(response.responseData);
+      _taskStatusCountList = taskStatusCountModel.taskStatusCountList ?? [];
+    } else {
+      showSnackBarMessage(context, response.errorMessage, true);
+    }
+    _getTaskStatusCountListInProgress = false;
+    setState(() {});
   }
 }

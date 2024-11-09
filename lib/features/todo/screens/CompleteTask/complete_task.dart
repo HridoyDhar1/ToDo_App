@@ -16,7 +16,7 @@ class CompleteTask extends StatefulWidget {
 }
 
 class _CompleteTaskState extends State<CompleteTask> {
-   bool _getCompletedTaskListInProgress = false;
+  bool _getCompletedTaskListInProgress = false;
   List<TaskModel> _completedTaskList = [];
 
   @override
@@ -27,30 +27,29 @@ class _CompleteTaskState extends State<CompleteTask> {
 
   @override
   Widget build(BuildContext context) {
-    return  Expanded(
-                  child: Visibility(
-                    visible: !_getCompletedTaskListInProgress,
-                    replacement: const CenteredCircularProgressIndicator(),
-                    child: RefreshIndicator(
-                      onRefresh: ()async{
-                        _getCompletedTaskList();
-                        
-
-                      },
-                      
-                      child: ListView.separated(
-                        itemCount: _completedTaskList.length,
-                        itemBuilder: (context, index) {
-                         
-                          return TaskCard(taskModel: _completedTaskList[index], onRefreshList: _getCompletedTaskList);
-                        },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 8),
-                      ),
-                    ),
-                  ),
-                );
+    return Expanded(
+      child: Visibility(
+        visible: !_getCompletedTaskListInProgress,
+        replacement: const CenteredCircularProgressIndicator(),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            _getCompletedTaskList();
+          },
+          child: ListView.separated(
+            itemCount: _completedTaskList.length,
+            itemBuilder: (context, index) {
+              return TaskCard(
+                  taskModel: _completedTaskList[index],
+                  onRefreshList: _getCompletedTaskList);
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 8),
+          ),
+        ),
+      ),
+    );
   }
+
   Future<void> _getCompletedTaskList() async {
     _completedTaskList.clear();
     _getCompletedTaskListInProgress = true;
@@ -61,6 +60,7 @@ class _CompleteTaskState extends State<CompleteTask> {
       final TaskListModel taskListModel =
           TaskListModel.fromJson(response.responseData);
       _completedTaskList = taskListModel.taskList ?? [];
+     
     } else {
       showSnackBarMessage(context, response.errorMessage, true);
     }

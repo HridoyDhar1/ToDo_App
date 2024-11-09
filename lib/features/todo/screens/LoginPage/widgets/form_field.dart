@@ -6,11 +6,12 @@ class CustomTextField extends StatelessWidget {
   final IconData icons;
   final TextInputType keyboardTypes;
   final TextEditingController controller;
+  final String?hintText;
   const CustomTextField({
     super.key,
     required this.name,
     required this.icons,
-    required this.keyboardTypes, required this.controller, required this.valid,
+    required this.keyboardTypes, required this.controller, required this.valid, this.hintText,
   });
 
   @override
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (String?value){
             if(value?.isEmpty??true){
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
           },
           controller: controller,
           decoration: InputDecoration(
+            hintText: hintText,
               prefixIcon: Icon(icons),
              
               border:

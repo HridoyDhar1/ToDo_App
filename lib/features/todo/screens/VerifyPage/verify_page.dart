@@ -25,7 +25,7 @@ class _VerificationPageState extends State<VerificationPage> {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            Container(height: 300,width: double.infinity,child: Image.asset("assets/images/verify.png"),),
+            SizedBox(height: 300,width: double.infinity,child: Image.asset("assets/images/verify.png"),),
             const SizedBox(height: 50),
             const Align(
               alignment: Alignment.bottomLeft,
@@ -57,6 +57,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 textFieldAlignment: MainAxisAlignment.spaceAround,
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
+                  // ignore: avoid_print
                   print("Completed: " + pin);
                 },
               ),
