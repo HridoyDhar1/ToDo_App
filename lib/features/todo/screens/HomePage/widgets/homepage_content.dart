@@ -8,6 +8,7 @@ import 'package:todo/data/model/taskcount_model.dart';
 import 'package:todo/data/model/tasklist_model.dart';
 import 'package:todo/data/model/taskstatus_model.dart';
 import 'package:todo/data/services/network_response.dart';
+import 'package:todo/features/todo/screens/HomePage/create_task.dart';
 import 'package:todo/features/todo/screens/HomePage/widgets/task_count_container.dart';
 import 'package:todo/utils/urls/urls.dart';
 
@@ -26,25 +27,25 @@ class HomePageContents extends StatefulWidget {
 class _HomePageContentsState extends State<HomePageContents> {
   bool _getNewTaskListInProgress = false;
   List<TaskModel> _newTaskList = [];
-  bool  _getTaskStatusCountListInProgress=false;
-  List<TaskStatusModel>_taskStatusCountList=[];
+  bool _getTaskStatusCountListInProgress = false;
+  List<TaskStatusModel> _taskStatusCountList = [];
 
   @override
   void initState() {
     super.initState();
-    _getNewTaskList(); // Initial fetch for tasks when the page loads
- _getTaskStatusCount();
+    _getNewTaskList();
+    _getTaskStatusCount();
   }
 
   @override
   Widget build(BuildContext context) {
     int totalTasksCount = _newTaskList.length;
     int inProcessTasksCount =
-        _newTaskList.where((task) => task.status == 'in_process').length;
+        _newTaskList.where((task) => task.status == 'inProcess').length;
     int completedTasksCount =
-        _newTaskList.where((task) => task.status == 'completed').length;
+        _newTaskList.where((task) => task.status == 'Completed').length;
     int canceledTasksCount =
-        _newTaskList.where((task) => task.status == 'canceled').length;
+        _newTaskList.where((task) => task.status == 'Cancelled').length;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -57,7 +58,7 @@ class _HomePageContentsState extends State<HomePageContents> {
             ),
             actions: [
               IconButton(
-                onPressed: () {}, // Add logout functionality if needed
+                onPressed: () {}, 
                 icon: const Icon(Icons.logout, color: Colors.black),
               ),
             ],
@@ -68,12 +69,14 @@ class _HomePageContentsState extends State<HomePageContents> {
             elevation: 1.0,
           ),
         ],
+        
         body: RefreshIndicator(
           onRefresh: () async {
             _getNewTaskList();
             _getTaskStatusCount();
-             // Pull-to-refresh functionality
+          
           },
+          
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -114,8 +117,21 @@ class _HomePageContentsState extends State<HomePageContents> {
             ),
           ),
         ),
+        
       ),
-    );
+      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const CreateTasks();
+          },
+        );
+      },
+      child: const Icon(Icons.add),
+    ),
+  );
+    
   }
 
   Future<void> _getNewTaskList() async {
@@ -185,7 +201,7 @@ class _HomePageContentsState extends State<HomePageContents> {
                   onPressed: () {
                     setState(() {
                       widget.tasks[index]['status'] = currentStatus;
-                      _getTaskStatusCount();
+
                     });
                     Navigator.of(context).pop();
                   },
@@ -198,6 +214,7 @@ class _HomePageContentsState extends State<HomePageContents> {
       },
     );
   }
+
   Future<void> _getTaskStatusCount() async {
     _taskStatusCountList.clear();
     _getTaskStatusCountListInProgress = true;
@@ -207,6 +224,7 @@ class _HomePageContentsState extends State<HomePageContents> {
     if (response.isSuccess) {
       final TaskStatusCountModel taskStatusCountModel =
           TaskStatusCountModel.fromJson(response.responseData);
+          
       _taskStatusCountList = taskStatusCountModel.taskStatusCountList ?? [];
     } else {
       showSnackBarMessage(context, response.errorMessage, true);
@@ -214,4 +232,5 @@ class _HomePageContentsState extends State<HomePageContents> {
     _getTaskStatusCountListInProgress = false;
     setState(() {});
   }
+  
 }

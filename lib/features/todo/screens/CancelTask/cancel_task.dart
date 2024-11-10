@@ -56,7 +56,7 @@ class _CancelledTaskState extends State<CancelledTask> {
     _getCancelledTaskListInProgress = true;
     setState(() {});
     final NetworkResponse response =
-        await NetworkCaller.getRequest(url: Urls.completedTaskList);
+        await NetworkCaller.getRequest(url: Urls.canceledTaskList );
     if (response.isSuccess) {
       final TaskListModel taskListModel =
           TaskListModel.fromJson(response.responseData);

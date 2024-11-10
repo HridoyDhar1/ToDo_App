@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:todo/features/personalization/screens/ProfilePage/profile_page.dart';
 import 'package:todo/features/todo/screens/CancelTask/cancel_task.dart';
 import 'package:todo/features/todo/screens/CompleteTask/complete_task.dart';
-import 'package:todo/features/todo/screens/HomePage/create_task.dart';
+
 import 'package:todo/features/todo/screens/HomePage/widgets/homepage_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -52,32 +52,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Define _pages inside build to access the updated tasks list
     final List<Widget> _pages = [
-HomePageContents(tasks: tasks),
-const CompleteTask(),
-const CancelledTask(),
+      HomePageContents(tasks: tasks),
+      const CompleteTask(),
+      const CancelledTask(),
       const ProfilePage(),
-
     ];
 
     return Scaffold(
-
-
       body: _pages[_selectedIndex],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const CreateTasks();
-            },
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: 
-        NavigationBar(
+      
+      bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (int index) {
           setState(() {

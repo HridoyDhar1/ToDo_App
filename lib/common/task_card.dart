@@ -134,7 +134,7 @@ void _showEditDialog(BuildContext context) {
               children: [
                 RadioListTile<String>(
                   title: const Text('Completed'),
-                  value: 'completed',
+                  value: 'Completed',
                   groupValue: currentStatus,
                   onChanged: (value) {
                     setState(() {
@@ -143,8 +143,8 @@ void _showEditDialog(BuildContext context) {
                   },
                 ),
                 RadioListTile<String>(
-                  title: const Text('Canceled'),
-                  value: 'canceled',
+                  title: const Text('Cancelled'),
+                  value: 'Cancelled',
                   groupValue: currentStatus,
                   onChanged: (value) {
                     setState(() {

@@ -5,7 +5,7 @@ class Urls {
     static const String addNewTask='$_baseUrl/createTask';
    
  static const String newTaskList='$_baseUrl/listTaskByStatus/New';
- static const String canceledTaskList='$_baseUrl/listTaskByStatus/canceled';
+ static const String canceledTaskList='$_baseUrl/listTaskByStatus/Cancelled';
 static const String completedTaskList = '$_baseUrl/listTaskByStatus/Completed';
 static const String taskStatusCount='$_baseUrl/taskStatusCount';
 static const String updateProfile='$_baseUrl/profileUpdate';
