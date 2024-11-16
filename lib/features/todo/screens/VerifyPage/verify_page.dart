@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -88,12 +90,10 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   void _verifyCode() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomePage()));
+   Get.to(const HomePage());
   }
 
   void _resendCode() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ResendCode()));
+ Get.to(const ResendCode());
   }
 }

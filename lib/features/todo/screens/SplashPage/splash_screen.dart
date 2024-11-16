@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo/features/todo/screens/HomePage/home_page.dart';
+import 'package:get/get.dart';
+
 import 'package:todo/features/todo/screens/LoginPage/login_page.dart';
+import 'package:todo/features/todo/screens/SingupPage/singup_screen.dart';
 import 'package:todo/features/todo/screens/SplashPage/widgets/texts.dart';
 
 import 'package:todo/utils/constants/texts.dart';
@@ -82,10 +84,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
   void _singin(){
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginPage()));
+Get.to(const LoginPage());
 }
   void _singup(){
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage()));
+Get.to(const SingupScreen());
 }
 }
 

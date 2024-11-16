@@ -3,11 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:todo/features/personalization/screens/ProfilePage/profile_page.dart';
 import 'package:todo/features/todo/screens/CancelTask/cancel_task.dart';
 import 'package:todo/features/todo/screens/CompleteTask/complete_task.dart';
-
 import 'package:todo/features/todo/screens/HomePage/widgets/homepage_content.dart';
 
 class HomePage extends StatefulWidget {
-
+static const String name='/';
   const HomePage({super.key});
 
   @override
@@ -17,9 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   DateTime? _selectDate;
   final TextEditingController _dateController = TextEditingController();
-  List<Map<String, String>> tasks = []; // Initialized here
+  List<Map<String, String>> tasks = []; 
 
-  // Method for date picker....
+  // Method for date picker.... //
   Future<void> _selectDated(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -31,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         _selectDate = picked;
         String formattedDate =
             DateFormat('EEEE, dd/MM/yyyy').format(_selectDate!);
-        // Update the text field with the formatted date
+        
         _dateController.text = formattedDate;
       });
     }
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   void _addNewTask(Map<String, String> task) {
     setState(() {
-      tasks.add(task); // Add the new task
+      tasks.add(task); 
     });
   }
 
