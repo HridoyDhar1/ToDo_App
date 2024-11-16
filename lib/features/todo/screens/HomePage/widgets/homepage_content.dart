@@ -29,7 +29,25 @@ class _HomePageContentsState extends State<HomePageContents> {
   List<TaskModel> _newTaskList = [];
   bool _getTaskStatusCountListInProgress = false;
   List<TaskStatusModel> _taskStatusCountList = [];
+  int get totalTasksCount=>_newTaskList.length;
+  
+int? get inProcessTasksCount {
+    return _taskStatusCountList
+        .firstWhere((task) => task.sId == 'inProcess', orElse: () => TaskStatusModel(sId: 'inProcess', sum: 0))
+        .sum;
+  }
 
+  int? get completedTasksCount {
+    return _taskStatusCountList
+        .firstWhere((task) => task.sId == 'Completed', orElse: () => TaskStatusModel(sId: 'Completed', sum: 0))
+        .sum;
+  }
+
+  int? get canceledTasksCount {
+    return _taskStatusCountList
+        .firstWhere((task) => task.sId == 'Cancelled', orElse: () => TaskStatusModel(sId: 'Cancelled', sum: 0))
+        .sum;
+  }
   @override
   void initState() {
     super.initState();
@@ -39,13 +57,8 @@ class _HomePageContentsState extends State<HomePageContents> {
 
   @override
   Widget build(BuildContext context) {
-    int totalTasksCount = _newTaskList.length;
-    int inProcessTasksCount =
-        _newTaskList.where((task) => task.status == 'inProcess').length;
-    int completedTasksCount =
-        _newTaskList.where((task) => task.status == 'Completed').length;
-    int canceledTasksCount =
-        _newTaskList.where((task) => task.status == 'Cancelled').length;
+
+  
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -83,9 +96,9 @@ class _HomePageContentsState extends State<HomePageContents> {
               children: [
                 TaskCountContainer(
                   totalTasksCount: totalTasksCount,
-                  inProcessTasksCount: inProcessTasksCount,
-                  completedTasksCount: completedTasksCount,
-                  canceledTasksCount: canceledTasksCount,
+                  inProcessTasksCount: inProcessTasksCount??0,
+                  completedTasksCount: completedTasksCount??0,
+                  canceledTasksCount: canceledTasksCount??0,
                 ),
                 const SizedBox(height: 20),
                 const Align(

@@ -6,6 +6,7 @@ import 'package:todo/features/todo/screens/SplashPage/widgets/texts.dart';
 import 'package:todo/utils/constants/texts.dart';
 
 class SplashScreen extends StatefulWidget {
+
   const SplashScreen({super.key});
 
   @override
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 50),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(

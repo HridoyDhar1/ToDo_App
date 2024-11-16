@@ -35,15 +35,18 @@ class _CompleteTaskState extends State<CompleteTask> {
           onRefresh: () async {
             _getCompletedTaskList();
           },
-          child: ListView.separated(
-            itemCount: _completedTaskList.length,
-            itemBuilder: (context, index) {
-              return TaskCard(
-                  taskModel: _completedTaskList[index],
-                  onRefreshList: _getCompletedTaskList);
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 8),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.separated(
+              itemCount: _completedTaskList.length,
+              itemBuilder: (context, index) {
+                return TaskCard(
+                    taskModel: _completedTaskList[index],
+                    onRefreshList: _getCompletedTaskList);
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 8),
+            ),
           ),
         ),
       ),

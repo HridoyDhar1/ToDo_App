@@ -27,29 +27,32 @@ class _CancelledTaskState extends State<CancelledTask> {
 
   @override
   Widget build(BuildContext context) {
-    return  Expanded(
-                  child: Visibility(
-                    visible: !_getCancelledTaskListInProgress,
-                    replacement: const CenteredCircularProgressIndicator(),
-                    child: RefreshIndicator(
-                      onRefresh: ()async{
-                        _getCompletedTaskList();
-                        
-
-                      },
-                      
-                      child: ListView.separated(
-                        itemCount: _cancelledTaskList.length,
-                        itemBuilder: (context, index) {
-                         
-                          return TaskCard(taskModel: _cancelledTaskList[index], onRefreshList: _getCompletedTaskList);
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Expanded(
+                    child: Visibility(
+                      visible: !_getCancelledTaskListInProgress,
+                      replacement: const CenteredCircularProgressIndicator(),
+                      child: RefreshIndicator(
+                        onRefresh: ()async{
+                          _getCompletedTaskList();
+                          
+      
                         },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 8),
+                        
+                        child: ListView.separated(
+                          itemCount: _cancelledTaskList.length,
+                          itemBuilder: (context, index) {
+                           
+                            return TaskCard(taskModel: _cancelledTaskList[index], onRefreshList: _getCompletedTaskList);
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const SizedBox(height: 8),
+                        ),
                       ),
                     ),
                   ),
-                );
+    );
   }
   Future<void> _getCompletedTaskList() async {
     _cancelledTaskList.clear();
